@@ -1,0 +1,116 @@
+library(readr)
+chen <- read_csv("chen.csv",col_names=T,cols(
+  x = col_double(),
+  y = col_double(),
+  z= col_double()))
+  
+  fit.full1 <- glm(x~y+z,
+                 data=chen,family = binomial())
+                 summary(fit.full1)
+                 
+li <- read_csv("li.csv",col_names=T,cols(
+  x = col_double(),
+  y = col_double(),
+  z= col_double()))  
+  fit.full2 <- glm(x~y+z,
+                 data=li,family = binomial())
+                 summary(fit.full2)
+                 
+liu <- read_csv("liu.csv",col_names=T,cols(
+  x = col_double(),
+  y = col_double(),
+  z= col_double()))  
+  fit.full3 <- glm(x~y+z,
+                 data=liu,family = binomial())
+                 summary(fit.full3) 
+                 
+si <- read_csv("si.csv",col_names=T,cols(
+  x = col_double(),
+  y = col_double(),
+  z= col_double()))  
+  fit.full4 <- glm(x~y+z,
+                 data=si,family = binomial())
+                 summary(fit.full4) 
+                 
+zhu <- read_csv("zhu.csv",col_names=T,cols(
+  x = col_double(),
+  y = col_double(),
+  z= col_double()))  
+  fit.full5 <- glm(x~y+z,
+                 data=zhu,family = binomial())
+                 summary(fit.full5) 
+                
+
+  
+t<-array()
+for(i in 1:103){
+  a<-liu[i,2]
+  b<-liu[i,3]
+  
+  fit.reduced1<- glm(x ~ y+z
+                     , data=liu, family=binomial())
+  testdata <- data.frame( y=c(a),
+                          z=c(b))
+  testdata$prob <- predict(fit.reduced1, newdata=testdata, type="response")
+  
+  t[i]<-testdata$prob
+  n<-list(t)}
+prob <- matrix(unlist(n)) #将结果保存在矩阵中
+
+r<-round(prob)
+
+
+z<-0
+for(i in 1:103){
+d<-liu[i,1]
+e<-r[i,1]
+ if (d==e){
+     z<-z+1
+   }else{
+    z<-z+0}}
+
+
+
+
+
+
+
+
+
+ 
+rm(list = ls())
+library(readr)
+ xyz <- read_csv("xyz.csv",col_names=T,cols(
+  x = col_double(),
+  y = col_double(),
+  z= col_double()))  
+  fit.full6 <- glm(x~y+z,
+                 data=xyz,family = binomial())
+                 summary(fit.full6) 
+t<-array()
+for(i in 1:171){
+  a<-xyz[i,2]
+  b<-xyz[i,3]
+  
+  fit.reduced1<- glm(x ~ y+z
+                     , data=xyz, family=binomial())
+  testdata <- data.frame( y=c(a),
+                          z=c(b))
+  testdata$prob <- predict(fit.reduced1, newdata=testdata, type="response")
+  
+  t[i]<-testdata$prob
+  n<-list(t)}
+prob <- matrix(unlist(n)) #将结果保存在矩阵中
+
+r<-round(prob)
+
+z<-0
+for(i in 1:171){
+d<-xyz[i,1]
+e<-r[i,1]
+ if (d==e){
+     z<-z+1
+   }else{
+    z<-z+0}}  
+Prediction<-z/171
+                 
